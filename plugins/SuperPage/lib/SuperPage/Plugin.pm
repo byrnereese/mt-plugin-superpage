@@ -129,7 +129,7 @@ sub _toc {
     my ($parent, @pages) = @_;
     require MT::Page;
     my $toc = MT::Page->new;
-    $toc->title($parent->title . ": " . $app->translate("Table of Contents"));
+    $toc->title($parent->title . ": " . MT->instance()->translate("Table of Contents"));
     $toc->basename("index");
     $toc->allow_comments(0);
     $toc->status(MT::Entry::RELEASE());
@@ -158,7 +158,7 @@ sub xfrm_edit {
       <mtapp:statusmsg
           id="super-page"
           class="alert">
-          <__trans phrase="You are editing the artifact of a 'super page.' Changes you make might get lost.">
+          <__trans phrase="You are editing the artifact of a 'super page.' Changes you make might get lost. Edit the [_1]original page[_2]." params='<a href="<mt:var name="script_url">?__mode=view&_type=page&blog_id=<mt:var name="blog_id">&id=<mt:var name="parent_super_page">">%%</a>'>
       </mtapp:statusmsg>
       </mt:if>
 END_TMPL

@@ -4,7 +4,7 @@ author_link: http://www.majordojo.com/
 author_name: Byrne Reese
 key: SuperPage
 id: SuperPage
-version: 0.95
+version: 0.96
 schema_version: 4
 l10n_class: SuperPage::L10N
 object_types:
