@@ -1,0 +1,44 @@
+name: Super Page Plugin
+description: This plugin introoduces the concept of a "super page." A super page is a large document that will be fragmented into lots of smaller documents within the system. Updates to the original document will result in the child pages being rebuilt as well.
+author_link: http://www.majordojo.com/
+author_name: Byrne Reese
+key: SuperPage
+id: SuperPage
+version: 0.95
+schema_version: 4
+l10n_class: SuperPage::L10N
+object_types:
+    entry:
+        is_super_page: smallint
+        parent_super_page: integer
+        next_page: integer meta
+        prev_page: integer meta
+
+tags:
+    function:
+        PrevPageID: $SuperPage::SuperPage::Plugin::tag_prev_page_id
+        NextPageID: $SuperPage::SuperPage::Plugin::tag_next_page_id
+        ParentPageID: $SuperPage::SuperPage::Plugin::tag_parent_page_id
+    block:
+        IsSuperPage?: $SuperPage::SuperPage::Plugin::tag_is_super
+        IsSuperChildPage?: $SuperPage::SuperPage::Plugin::tag_is_super_child
+
+settings:
+    enable_superpage:
+        Default: 0
+        Scope: blog
+blog_config_template: blog_config_template.tmpl
+
+callbacks:
+    MT::App::CMS::template_source.edit_entry: $SuperPage::SuperPage::Plugin::xfrm_edit
+    MT::App::CMS::cms_pre_save.page: $SuperPage::SuperPage::Plugin::pre_save
+    MT::App::CMS::cms_post_save.page: $SuperPage::SuperPage::Plugin::post_save
+    MT::Page::pre_remove: $SuperPage::SuperPage::Plugin::pre_remove
+
+page_actions:
+    edit_page:
+        toggle_super:
+            label: Do Something!
+            order: 101
+            code: $SuperPage::SuperPage::Plugin::page_action
+
